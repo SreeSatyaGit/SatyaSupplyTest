@@ -2,15 +2,25 @@
 import React from 'react';
 
 function ContactList() {
+
+  const [contacts, setContacts] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/contacts/')
+            .then(response => response.json())
+            .then(data => setContacts(data));
+    }, []);
+
   return (
     <section id="contact">
-      <h1>Get in Touch</h1>
-      <p>
-        Contact us to learn more about our research and collaborations.
-      </p>
-      <p>
-      k.vanaja@northeastern.edu
-      </p>
+      <div>
+            <h1>Contact List</h1>
+            <ul>
+                {contacts.map(contact => (
+                    <li key={contact.id}>{contact.name}</li>
+                ))}
+            </ul>
+        </div>
     </section>
   );
 }
