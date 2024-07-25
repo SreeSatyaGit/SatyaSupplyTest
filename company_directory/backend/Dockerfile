@@ -1,3 +1,5 @@
+# backend/Dockerfile
+
 # Use an official Python runtime as a parent image
 FROM python:3.9
 
@@ -20,4 +22,4 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED=1
 
 # Run the application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]

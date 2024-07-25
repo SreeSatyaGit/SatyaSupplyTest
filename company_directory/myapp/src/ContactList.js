@@ -1,28 +1,33 @@
-// Contact.js
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { fetchData } from './api';
 
-function ContactList() {
-
-  const [contacts, setContacts] = useState([]);
+const ContactList = () => {
+    const [companies, setCompanies] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('/api/contacts/')
-            .then(response => response.json())
-            .then(data => setContacts(data));
+        fetchData('http://backend:8000/api/companies/')
+            .then(data => setCompanies(data))
+            .catch(error => setError(error.message));
     }, []);
 
-  return (
-    <section id="contact">
-      <div>
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    return (
+        <div>
             <h1>Contact List</h1>
             <ul>
-                {contacts.map(contact => (
-                    <li key={contact.id}>{contact.name}</li>
+                {companies.map(company => (
+                    <li key={company.company_id}>
+                        <Link to={`/contactdetails/${company.company_id}`}>{company.name}</Link>
+                    </li>
                 ))}
             </ul>
         </div>
-    </section>
-  );
-}
+    );
+};
 
 export default ContactList;

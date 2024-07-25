@@ -1,26 +1,40 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotFound
 import pandas as pd
+import logging
 
-from rest_framework import viewsets
-from .models import Company, Location
-from .serializers import CompanySerializer, LocationSerializer
-from django.shortcuts import render
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-class CompanyViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+# Paths to CSV files
+COMPANIES_CSV = 'companies.csv'
+LOCATIONS_CSV = 'locations.csv'
 
-class LocationViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
+def get_all_companies(request):
+    try:
+        df = pd.read_csv(COMPANIES_CSV)
+        companies = df.to_dict(orient='records')
+        return JsonResponse(companies, safe=False)
+    except Exception as e:
+        logger.error(f"Error reading companies: {e}")
+        return JsonResponse({'error': 'Unable to read companies data'}, status=500)
 
-def contact_list(request):
-    # Assuming 'contacts.csv' is the file with your data
-    df = pd.read_csv('path_to_your_csv/contacts.csv')
-    contacts = df.to_dict(orient='records')
-    return JsonResponse(contacts, safe=False)
+def get_company_by_id(request, company_id):
+    try:
+        df = pd.read_csv(COMPANIES_CSV)
+        company = df[df['company_id'] == company_id].to_dict(orient='records')
+        if not company:
+            return HttpResponseNotFound({'error': 'Company not found'})
+        return JsonResponse(company[0], safe=False)
+    except Exception as e:
+        logger.error(f"Error reading company by ID: {e}")
+        return JsonResponse({'error': 'Unable to read company data'}, status=500)
 
-def contact_details(request, contact_id):
-    df = pd.read_csv('path_to_your_csv/contacts.csv')
-    contact = df[df['id'] == contact_id].to_dict(orient='records')
-    return JsonResponse(contact, safe=False)
+def get_locations_by_company_id(request, company_id):
+    try:
+        df = pd.read_csv(LOCATIONS_CSV)
+        locations = df[df['company_id'] == company_id].to_dict(orient='records')
+        return JsonResponse(locations, safe=False)
+    except Exception as e:
+        logger.error(f"Error reading locations: {e}")
+        return JsonResponse({'error': 'Unable to read locations data'}, status=500)

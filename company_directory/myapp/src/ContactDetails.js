@@ -1,17 +1,48 @@
-
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useParams , Link} from 'react-router-dom';
+import { fetchData } from './api';
 
-function ContactDetails() {
+const ContactDetails = () => {
+    const { id } = useParams();
+    const [company, setCompany] = useState(null);
+    const [locations, setLocations] = useState([]);
+    const [error, setError] = useState(null);
 
-  return (
-    <section id="contact">
-      <h1>Get in Touch</h1>
-      <p>
-      k.vanaja@northeastern.edu
-      </p>
-    </section>
-  );
-}
+    useEffect(() => {
+        fetchData(`http://backend:8000/api/companies/${id}/`)
+            .then(data => setCompany(data))
+            .catch(error => setError(error.message));
+    }, [id]);
+
+    useEffect(() => {
+        fetchData(`http://backend:8000/api/companies/${id}/locations/`)
+            .then(data => setLocations(data))
+            .catch(error => setError(error.message));
+    }, [id]);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
+    if (!company) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <div>
+            <h1>{company.name}</h1>
+            <p>{company.address}</p>
+            <h2>Locations</h2>
+            <ul>
+                {locations.map(location => (
+                    <li key={location.location_id}>
+                        {location.name} - {location.address}
+                    </li>
+                ))}
+            </ul>
+            <Link to="/">Back to List</Link>
+        </div>
+    );
+};
 
 export default ContactDetails;
