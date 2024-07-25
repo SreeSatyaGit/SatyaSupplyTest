@@ -9,6 +9,7 @@ function ContactList() {
             .then(response => response.json())
             .then(data => setContacts(data));
     }, []);
+    
 
   return (
     <section id="contact">
