@@ -7,7 +7,7 @@ const ContactList = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchData('http://backend:8000/api/companies/')
+        fetchData(`${process.env.REACT_APP_BACKEND_URL}/api/companies/`)
             .then(data => setCompanies(data))
             .catch(error => setError(error.message));
     }, []);

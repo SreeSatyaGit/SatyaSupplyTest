@@ -9,13 +9,13 @@ const ContactDetails = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchData(`http://backend:8000/api/companies/${id}/`)
+        fetchData(`${process.env.REACT_APP_BACKEND_URL}/api/companies/${id}/`)
             .then(data => setCompany(data))
             .catch(error => setError(error.message));
     }, [id]);
 
     useEffect(() => {
-        fetchData(`http://backend:8000/api/companies/${id}/locations/`)
+        fetchData(`${process.env.REACT_APP_BACKEND_URL}/api/companies/${id}/locations/`)
             .then(data => setLocations(data))
             .catch(error => setError(error.message));
     }, [id]);

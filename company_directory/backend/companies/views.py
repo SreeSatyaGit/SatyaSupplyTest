@@ -7,8 +7,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Paths to CSV files
-COMPANIES_CSV = 'companies.csv'
-LOCATIONS_CSV = 'locations.csv'
+COMPANIES_CSV = './dataFiles/companies.csv'
+LOCATIONS_CSV = './dataFiles/locations.csv'
 
 def get_all_companies(request):
     try:
