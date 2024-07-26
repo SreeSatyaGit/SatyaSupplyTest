@@ -4,6 +4,8 @@ import { fetchData } from './api';
 
 const CompanyList = () => {
     const [companies, setCompanies] = useState([]);
+    const [filteredCompanies, setFilteredCompanies] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -11,6 +13,7 @@ const CompanyList = () => {
         fetchData(`${process.env.REACT_APP_BACKEND_URL}/api/companies/`)
             .then(data => {
                 setCompanies(data);
+                setFilteredCompanies(data);
                 setLoading(false);
             })
             .catch(error => {
@@ -18,6 +21,18 @@ const CompanyList = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        setFilteredCompanies(
+            companies.filter(company =>
+                company.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+        );
+    }, [searchQuery, companies]);
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -29,8 +44,14 @@ const CompanyList = () => {
 
     return (
         <div>
+            <input
+                type="text"
+                placeholder="Search by company name"
+                value={searchQuery}
+                onChange={handleSearchChange}
+            />
             <ul>
-                {companies.map(company => (
+                {filteredCompanies.map(company => (
                     <li key={company.company_id}>
                         <Link to={`/companydetails/${company.company_id}`}>{company.name}</Link>
                     </li>
