@@ -6,12 +6,26 @@ import CompanyDetails from './CompanyDetails';
 
 const AppHeader = () => {
   const location = useLocation();
-
+  const isCompanyDetails = location.pathname.includes('/companydetails/');
   return (
     <header className="App-header">
       <nav className="navbar">
         <div className="navbar-links">
-          <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Company List</Link>
+        {isCompanyDetails ? (
+            <Link
+              className="active"
+              // style={{ color: 'blue', cursor: 'default' }}
+            >
+              Company Details
+            </Link>
+          ) : (
+            <Link
+              to="/"
+              className={location.pathname === '/' ? 'active' : ''}
+            >
+              Company List
+            </Link>
+          )}
         </div>
       </nav>
     </header>

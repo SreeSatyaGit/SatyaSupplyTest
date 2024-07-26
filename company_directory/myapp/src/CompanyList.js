@@ -29,7 +29,6 @@ const CompanyList = () => {
 
     return (
         <div>
-            <h1>Company List</h1>
             <ul>
                 {companies.map(company => (
                     <li key={company.company_id}>
