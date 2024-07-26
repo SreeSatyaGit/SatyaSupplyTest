@@ -76,13 +76,23 @@ const CompanyDetails = () => {
                             {company.name} <br /> {company.address}
                         </Popup>
                     </Marker>
+                    {locations.map(location => (
+                        <Marker key={location.location_id} position={[location.latitude, location.longitude]}>
+                            <Popup>
+                                {location.name} <br /> {location.address}
+                            </Popup>
+                        </Marker>
+                    ))}
                 </MapContainer>
             </div>
             <h2>Locations</h2>
             <ul>
                 {locations.map(location => (
                     <li key={location.location_id}>
-                        {location.name} - {location.address}
+                        <strong>Name:</strong> {location.name} <br />
+                        <strong>Address:</strong> {location.address} <br />
+                        <strong>Latitude:</strong> {location.latitude} <br />
+                        <strong>Longitude:</strong> {location.longitude}
                     </li>
                 ))}
             </ul>
