@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchData } from './api';
+import './App.css'
+
 
 const CompanyList = () => {
     const [companies, setCompanies] = useState([]);
@@ -43,20 +45,22 @@ const CompanyList = () => {
     }
 
     return (
-        <div>
+        <div className="company-list-container">
+            <h1>Company List</h1>
             <input
                 type="text"
                 placeholder="Search by company name"
                 value={searchQuery}
                 onChange={handleSearchChange}
+                className="search-input"
             />
-            <ul>
+            <div className="company-list">
                 {filteredCompanies.map(company => (
-                    <li key={company.company_id}>
-                        <Link to={`/companydetails/${company.company_id}`}>{company.name}</Link>
-                    </li>
+                    <Link key={company.company_id} to={`/companydetails/${company.company_id}`} className="company-item">
+                        {company.name}
+                    </Link>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

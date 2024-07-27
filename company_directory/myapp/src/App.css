@@ -1,3 +1,16 @@
+.company-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
 .App {
   text-align: center;
   font-family: Arial, sans-serif;
@@ -38,315 +51,92 @@
   margin: 0 auto;
 }
 
-.navbar-links a {
+.search-input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.company-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.company-item {
+  background-color: #f5f5f5;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 10px;
   text-decoration: none;
   color: #333;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.company-item:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.company-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.map-container {
+  height: 400px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+h2 {
+  font-size: 2em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.location-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.location-item {
+  background-color: #f5f5f5;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 1em;
+  color: #007bff;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.navbar-links a:hover,
-.navbar-links a.active {
-  color: #00c6ff;
-}
-.navbar-links a.dead {
-  color: #090909;
-}
-
-.navbar-buttons {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.login-button,
-.demo-button {
-  background-color: #00c6ff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin-left: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.hero {
-  margin: 10px 0;
-  position: relative;
-}
-.hero-image {
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0 auto;
-  display: block;
-  object-fit: fill;
-}
-
-.hero h1 {
-  font-size: 2.25rem;
-  margin-bottom: 20px;
-}
-
-.hero h2 {
-  font-size: 1.875rem;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 30px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.benefits {
-  background-color: #f0f8ff;
-  padding: 50px 20px;
-}
-
-.benefits h2 {
-  font-size: 1.75rem;
-  margin-bottom: 20px;
-}
-
-.benefits-intro {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 40px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.benefits-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.benefit-card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
-  flex: 1 1 calc(33.333% - 20px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  max-width: 300px;
-}
-
-.benefit-card img {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 20px;
-}
-
-.benefit-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
-
-.benefit-card p {
-  font-size: 1rem;
-  color: #666;
-}
-
-.people-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.principal-investigator {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  margin-bottom: 20px;
-}
-
-.image-section {
-  flex: 1 1 100%;
-  max-width: 200px; /* Increase the max-width for the image section */
-  padding-right: 20px;
-}
-
-.profile-image {
-  width: 100%;
-  height: auto;
-  border-radius: 50%;
-}
-
-.details-section {
-  flex: 2 1 100%;
-  max-width: calc(100% - 220px); /* Adjust the max-width to accommodate larger image */
-}
-
-.details-section h2 {
-  color: #2c3e50;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.details-section h3 {
-  color: #2c3e50;
-  font-size: 1.25rem;
-  margin-bottom: 20px;
-}
-
-.details-section p {
-  color: #2c3e50;
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.postdocs {
-  margin-top: 20px;
-}
-
-.postdocs h2 {
-  color: #2c3e50;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.postdocs-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.postdoc-card {
-  flex: 1 1 calc(33.333% - 20px);
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  padding: 20px;
-  text-align: center;
-  max-width: 300px;
-}
-
-.postdoc-image {
-  width: 100%;
-  height: auto;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.postdoc-title {
-  color: #2c3e50;
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.labInfo {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #333;
-    line-height: 1.6;
-    margin: 20px;
-    padding: 0;
-}
-
-.labInfo p{
-  font-size: 1.1em;
-  margin-bottom: 1.2em;
-}
-
-.publications {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-}
-
-.post {
-  border-bottom: 1px solid #ddd;
-  padding: 20px 0;
-  text-align: left;
-  background-color: #ffffff;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.date {
-  color: #888;
-  margin: 10px 0;
-}
-
-.button {
-  background-color: #fff;
-  border: 1px solid #000;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #f0f0f0;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-  .navbar-links {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .navbar-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .hero h2 {
-    font-size: 1.5rem;
-  }
-
-  .benefit-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .principal-investigator {
-    flex-direction: column;
-  }
-
-  .image-section, .details-section {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  .postdoc-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 1.75rem;
-  }
-
-  .hero h2 {
-    font-size: 1.25rem;
-  }
-
-  .benefits h2 {
-    font-size: 1.5rem;
-  }
+.back-link:hover {
+  color: #0056b3;
 }

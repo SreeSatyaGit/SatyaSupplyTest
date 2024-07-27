@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { fetchData } from './api';
+import './App.css'; // Import the CSS file
 
 // Fix default icon issue with Leaflet in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -20,6 +21,34 @@ const CompanyDetails = () => {
     const [loadingCompany, setLoadingCompany] = useState(true);
     const [loadingLocations, setLoadingLocations] = useState(true);
     const [error, setError] = useState(null);
+
+    // Define custom icons
+    const icon1 = new L.Icon({
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+
+    const icon2 = new L.Icon({
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-red.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+
+    const icon3 = new L.Icon({
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-green.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
 
     useEffect(() => {
         if (id) {
@@ -62,33 +91,43 @@ const CompanyDetails = () => {
     }
 
     return (
-        <div>
+        <div className="company-details-container">
             <h1>{company.name}</h1>
             <p>{company.address}</p>
-            <div style={{ height: '400px' }}>
+            <div className="map-container">
                 <MapContainer center={[company.latitude, company.longitude]} zoom={13} style={{ height: '100%', width: '100%' }}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <Marker position={[company.latitude, company.longitude]}>
+                    <Marker position={[company.latitude, company.longitude]} icon={icon1}>
                         <Popup>
                             {company.name} <br /> {company.address}
                         </Popup>
                     </Marker>
-                    {locations.map(location => (
-                        <Marker key={location.location_id} position={[location.latitude, location.longitude]}>
-                            <Popup>
-                                {location.name} <br /> {location.address}
-                            </Popup>
-                        </Marker>
-                    ))}
+                    {locations.map((location, index) => {
+                        let icon;
+                        if (index % 3 === 0) {
+                            icon = icon1;
+                        } else if (index % 3 === 1) {
+                            icon = icon2;
+                        } else {
+                            icon = icon3;
+                        }
+                        return (
+                            <Marker key={location.location_id} position={[location.latitude, location.longitude]} icon={icon}>
+                                <Popup>
+                                    {location.name} <br /> {location.address}
+                                </Popup>
+                            </Marker>
+                        );
+                    })}
                 </MapContainer>
             </div>
             <h2>Locations</h2>
-            <ul>
+            <ul className="location-list">
                 {locations.map(location => (
-                    <li key={location.location_id}>
+                    <li key={location.location_id} className="location-item">
                         <strong>Name:</strong> {location.name} <br />
                         <strong>Address:</strong> {location.address} <br />
                         <strong>Latitude:</strong> {location.latitude} <br />
@@ -96,7 +135,7 @@ const CompanyDetails = () => {
                     </li>
                 ))}
             </ul>
-            <a href="/">Back to List</a>
+            <a href="/" className="back-link">Back to List</a>
         </div>
     );
 };
